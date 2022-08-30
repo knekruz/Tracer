@@ -1,0 +1,158 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Support {{ support.isin }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+
+            <div class="card text-white border-success mb-3">
+                <div class="card-header bg-success text-left"><h2>Support {{ support.isin }}</h2></div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <th><h5><strong>Nom</strong></h5></th>
+                            <td><h5>{{ support.nom }}</h5></td>
+                        </tr>
+                        <tr>
+                            <th><h5><strong>Catégories</strong></h5></th>
+                            <td> 
+                                {% for category in support.categories %}
+                                    <span class="badge bg-success"><h5>{{ category.nom }}</h5></span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><h5><strong>Emetteur</strong></h5></th>
+                            <td>
+                                <h5>{{ support.getEmetteur().getNom() }}</h5>
+                            </td>
+                        </tr>
+                        {% if showArchive %}
+                        <tr>
+                        <th></th>
+                            <td>
+                                <a class="btn btn-group-sm btn-success" 
+            href="{{ path('app_support_show', {'isin': support.isin, 'showArchive': false}) }}">Visualiser taux en vigueur</a>
+                            </td>
+                        </tr>
+                
+        
+                {# <h2 class="text-success center mb-4">Taux à la date du {{ 'now'|date('d/m/Y') }}</h2> #}
+                
+                            {% else %}
+                            <tr>
+                            <th><h5><strong>Taux a la date du: {{ "now"|date("d/m/Y") }}</strong></h5></th>
+                            <td>
+                                <a class="btn btn-group-sm btn-success" 
+            href="{{ path('app_support_show', {'isin': support.isin, 'showArchive': true}) }}">Historique</a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        {# <div class="row">
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <th>ISIN</th>
+                    <td>{{ support.isin }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ support.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Catégories</th>
+                    <td>
+                        {% for category in support.categories %}
+                            <span class="badge bg-dark">{{ category.nom }}</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Emetteur</th>
+                    <td>
+                        {{ support.getEmetteur().getNom() }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div> #}
+        {# {% if showArchive %}
+                <a class="btn btn-group-sm btn-info mb-4" 
+            href="{{ path('app_support_show', {'id': support.id, 'showArchive': false}) }}">Visualiser taux en vigueur</a>
+        {% else %}
+                {# <h2 class="text-info center mb-4">Taux à la date du {{ 'now'|date('d/m/Y') }}</h2> #}
+                {# <a class="btn btn-group-sm btn-info mb-4" 
+            href="{{ path('app_support_show', {'id': support.id, 'showArchive': true}) }}">Historique</a>
+        {% endif %}  #}
+        <h1 class="p-3 mb-2 bg-success text-white text-center">Mes Taux</h1>
+         <hr/>
+            <table id="supports" class="table table-hover table-bordered table-striped" style="width:100%">
+                <thead>
+                <tr class="table-success">
+                    <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Schèma</button></th>
+                    <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Taux client</button></th>
+                    <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Taux émetteur * Taux client">Part émetteur</button></th>
+                    <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Taux prestataire * (100-Taux émetteur) * Taux client">Part prestataire</button></th>
+                    <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Taux CNP * Taux net * (100-Taux émetteur) * Taux client">Part CNP</button></th>
+                    <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Taux distributeur * Taux net * (100-Taux émetteur) * Taux client">Part distributeur</button></th>
+                    <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Début période</button></th>
+                    <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Fin période</button></th>
+                </tr>
+                </thead>
+                <tbody class="table table-sm">
+                    {% set debut = date() %}
+                    {% set fin = date() %}
+                    {% set listeTaux = showArchive ? support.supportTauxes : support.supportTauxesActuels %}
+                    {% for taux in listeTaux %}
+                        <tr class="table-light">
+                            <th align="center" scope="row">{{ taux.idSchema.nom }}</th>
+                            <td align="center">{{ taux.taux }} %</td>
+                            <td align="center">{{ ((taux.tauxEmetteur/100)*(taux.taux/100))*100 }} %</td>
+                            <td align="center">{{ ((taux.tauxMfex/100)*((100-taux.tauxEmetteur)/100)*(taux.taux/100))*100 }} %</td>
+                            <td align="center">{{ ((taux.tauxCnp/100)*(taux.tauxNet/100)*((100-taux.tauxEmetteur)/100)*(taux.taux/100))*100 }} %</td>
+                            <td align="center">{{ ((taux.tauxDistributeur/100)*(taux.tauxNet/100)*((100-taux.tauxEmetteur)/100)*(taux.taux/100))*100 }} %</td>
+                            <td align="center">{{ taux.debutCommerce ? taux.debutCommerce|date('d-m-Y') : '' }}</td>
+                            <td align="center">{{ taux.finCommerce ? taux.finCommerce|date('d-m-Y') : '' }}</td>
+                        </tr>
+                        {% set debut = taux.debutCommerce %}
+                        {% set fin = taux.finCommerce %}
+                {% else %}
+                {% endfor %}
+                </tbody>
+            </table>
+            <h1 class="p-3 mb-2 bg-success text-white text-center">Mes Encours</h1>
+            <hr/>
+            <table id="encours" class="table table-hover table-bordered table-striped" style="width:100%">
+                <thead>
+                <tr class="table-success">
+                    <th class="text-center">Date position</th>
+                    <th class="text-center">Encours NET</th>
+                    <th class="text-center">Quantité NET</th>
+                    <th class="text-center">Valeur UC</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% set listeInvest = showArchive ? support.supportInvestissements : 
+                        support.getSupportInvestissementsActuels(debut, fin) %}
+                    {% for invest in listeInvest %}
+                        <tr class="table-light">
+                            <th scope="row" class="text-center">{{ invest.datePos ? invest.datePos|date('Y-m-d') : '' }}</th>
+                            <td align="right">{{ invest.montantNet|number_format(2, ',', ' ') }} €</td>
+                            <td align="right">{{ invest.qteNet }}</td>
+                            <td align="right">{{ invest.valeurUc|number_format(2, ',', ' ') }} €</td>
+                        </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+</div>
+{% endblock %}

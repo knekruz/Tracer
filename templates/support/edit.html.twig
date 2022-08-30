@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un suppport{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+            <div class="card border-dark">
+                <div class="card-header bg-dark text-white">
+                    <div class="row">
+                        <div class="col-md-12 cardhead" >
+                            <h5>Modifier un suppport</h5>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.nom) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.emetteur) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.categories) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.schemas) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.datePremierInvestist) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.dateFinInvest) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-primary col-md-12" href="{{ path('app_supports_index') }}">Retour</a>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-warning col-md-12 btn-block">Enregistrer</button>
+                        </div>
+                    </div>
+                    </div>    
+                </div>
+                {{ form_end(form) }}
+            </div>  
+</div>
+{% endblock %}

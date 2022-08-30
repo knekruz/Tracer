@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturation{% endblock %}
+
+{% block body %}
+
+                    
+           <div class="container-fluid mt-4" >
+                <h1 class="p-3 mb-2 bg-dark text-white text-center"><strong>Facturation par support sur une période</strong></h1>
+                <table id="supports" class="table table-hover table-bordered table-striped table-sm" style="width:100%">
+                    <thead>
+                    <tr class="table-dark">
+                        <th align="center">ISIN</th>
+                        <th align="center">Nom</th>
+                        <th align="center">Type de frais</th>
+                        <th align="center">Début période</th>
+                        <th align="center">Fin période</th>
+                        <th align="center">Statut</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for oneLineStat in stats %}
+                        <tr class="table-light">
+                            <th align="center" scope="col"><a
+            href="{{ path('app_stat', {'idTaux': oneLineStat.support_taux_id }) }}">{{ oneLineStat.isin }}</a></th>
+                            <th align="center" scope="col">{{ oneLineStat.nom }}</th>
+                            <td align="center" scope="col"> {{ oneLineStat.type_de_frais }}</td>
+                            <td align="center">{{ oneLineStat.debut_commerce ? oneLineStat.debut_commerce|date('d-m-Y') : '' }}</td>
+                            <td align="center">{{ oneLineStat.fin_commerce ? oneLineStat.fin_commerce|date('d-m-Y') : '' }}</td>  
+                            {% if oneLineStat.statut == "terminé" %}
+                            <td class="bg-success text-white" align="center">{{ oneLineStat.statut }}</td>    
+                            {% elseif oneLineStat.statut == "en cours" %}
+                            <td class="bg-warning text-white" align="center">{{ oneLineStat.statut }}</td>
+                            {% endif %}        
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau taux{% endblock %}
+
+{% block body %}
+ <div class="container mt-4">
+{#
+        <div class="table-responsive">
+
+            <table id="datatable" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Schèma</th>
+                    <th>Type de frais</th>
+                    <th>Taux Client</th>
+                    <th>Taux Net</th>
+                    <th>Taux Brut</th>
+                    <th>Taux Emetteur</th>
+                    <th>Taux Distributeur</th>
+                    <th>Taux Cnp</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td>{{ taux.schema.nom }}</td>
+                            <td>{{ taux.schema.typeFrais.nom }}</td>
+                            <td>{{ taux.tauxClient }}</td>
+                            <td>{{ taux.tauxNet }}</td>
+                            <td>{{ taux.tauxBrut }}</td>
+                            <td>{{ taux.tauxEmetteur }}</td>
+                            <td>{{ taux.tauxDistributeur }}</td>
+                            <td>{{ taux.tauxCnp }}</td>
+                            <td>{{ taux.dateDebutCommerce ? taux.dateDebutCommerce|date('Y-m-d') : '' }}</td>
+                            <td>{{ taux.dateFinCommerce ? taux.dateFinCommerce|date('Y-m-d') : '' }}</td>
+                            <td>
+                                <a class="btn btn-group-sm btn-primary" href="{{ path('app_schema_taux_edit', {'id': taux.id}) }}">Modifier</a>
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>    
+</div> #}
+    {# <div class="container-fluid kayu">
+        <div class="table-responsive list w-100" >
+            <table id="datatable" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Schèma</th>
+                        <th>Type de frais</th>
+                        <th>Taux Client</th>
+                        <th>Taux Net</th>
+                        <th>Taux Brut</th>
+                        <th>Taux Emetteur</th>
+                        <th>Taux Distributeur</th>
+                        <th>Taux Cnp</th>
+                        <th>Date début</th>
+                        <th>Date fin</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for taux in schemaTaux %}
+                        <tr>
+                            <td>{{ taux.schema.nom }}</td>
+                            <td>{{ taux.schema.typeFrais.nom }}</td>
+                            <td>{{ taux.tauxClient }}</td>
+                            <td>{{ taux.tauxNet }}</td>
+                            <td>{{ taux.tauxBrut }}</td>
+                            <td>{{ taux.tauxEmetteur }}</td>
+                            <td>{{ taux.tauxDistributeur }}</td>
+                            <td>{{ taux.tauxCnp }}</td>
+                            <td>{{ taux.dateDebutCommerce ? taux.dateDebutCommerce|date('Y-m-d') : '' }}</td>
+                            <td>{{ taux.dateFinCommerce ? taux.dateFinCommerce|date('Y-m-d') : '' }}</td>
+                            <td>
+                                <a class="btn btn-group-sm btn-primary" href="{{ path('app_schema_taux_edit', {'id': taux.id}) }}">Modifier</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table> #}
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-white">
+                    <div class="row">
+                        <div class="col-md-12 cardhead" >
+                            <h5>Nouveau taux</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body justify-content-center align-items-center w-100">
+                    {{ form_start(form) }}
+                    <div clas="row">
+                         <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.idSupport) }}</span>
+                        </div>
+                        <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.idSchema) }}</span>
+                        </div>
+                        <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.taux) }}</span>
+                        </div>
+                        <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.tauxEmetteur) }}</span>
+                        </div>
+                        <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.tauxMfex) }}</span>
+                        </div>
+                        <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.tauxBrut) }}</span>
+                        </div>
+                        <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.tauxNet) }}</span>
+                        </div>
+                        <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.tauxCnp) }}</span>
+                        </div>
+                    </div>
+                    <div clas="row">
+                        <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.tauxDistributeur) }}</span>
+                        </div>
+                        <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.partCnp) }}</span>
+                        </div>
+                        <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.debutCommerce) }}</span>
+                        </div>
+                        <div class="col-md-6 w-100">
+                            <span>{{ form_row(form.finCommerce) }}</span>
+                        </div>
+                    </div>    
+                    
+                </div>
+                <div class="card-footer">
+                    <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-primary col-md-12" href="{{ path('app_support_taux_index') }}">Retour</a>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-warning col-md-12 btn-block"> Enregistrer</button>
+                        </div>
+                    </div>
+                    </div>    
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

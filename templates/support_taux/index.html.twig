@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Taux index{% endblock %}
+
+{% block body %}
+            {# {% for message in app.flashes('Alerte') %}
+                <div class="alert alert-succes mt-4">
+                    {{ message }}
+                </div>
+            {% endfor %} #}
+    {# {{ form_start(form) }} #}
+        {# <div class="col-md-8">
+            <h5><a class="btn btn-success" href="{{ path('app_support_new') }}">Nouveau</a></h5>
+        </div> #}
+        <div class="container-fluid mt-4">
+            {# <div class="form-group col-md-4 mb-3 w-100">
+                <div class="input-group">
+                    {{ form_widget(form.recherche) }}
+                    <div class="input-group-append">
+                        <button type="submit" class="input-group-btn btn btn-success">Rechercher</button>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }} #}
+                <h1 class="p-3 mb-2 bg-primary text-white text-center"><strong>Taux par période</strong></h1>
+               
+                <table id="supports" class="table table-hover table-bordered table-striped table-sm">
+                    <thead>
+                    <tr class="table-primary">
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Schèma</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">ISIN</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Nom</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Frais</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Taux émetteur</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Taux prestataire</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Taux brut</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Taux net</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Taux client</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Taux distributeur</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Taux CNP</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Début période</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Fin période</button></th>
+                        <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Actions</button></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for taux in supportTaux %}
+                        <tr align="center" class="table-light">
+                            <th align="center" scope="col">{{ taux.idSchema.nom }}</th>
+                            <th align="center">{{ taux.idSupport.isin }}</th>
+                            <th align="center">{{ taux.idSupport.nom }}</th>
+                            <td align="center">{{ taux.idSchema.typeFrais.nom }}</td>
+                            <td align="center">{{ taux.tauxEmetteur }}%</td>
+                            <td align="center">{{ taux.tauxMfex }} %</td>
+                            <td align="center">{{ taux.tauxBrut }} %</td>
+                            <td align="center">{{ taux.tauxNet }} %</td>
+                            <td align="center">{{ taux.taux }}%</td>
+                            <td align="center">{{ taux.tauxDistributeur }}%</td>
+                            <td align="center">{{ taux.tauxCnp }}%</td>
+                            <td align="center">{{ taux.debutCommerce ? taux.debutCommerce|date('d-m-Y') : '' }}</td>
+                            <td align="center">{{ taux.finCommerce ? taux.finCommerce|date('d-m-Y') : '' }}</td>
+                            <td align="center">
+                                <a class="btn btn-outline-warning" href="{{ path('app_support_taux_edit', {'id': taux.id}) }}">Modifier</a>
+                                <a class="btn btn-outline-danger" href="{{ path('app_support_taux_delete', {'id': taux.id}) }}">Suprimer</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rappro{% endblock %}
+
+{% block body %}               
+<div class="container-fluid" >
+    {% for oneLineStat in stats %}
+        {% if app.request.get('idTaux') == oneLineStat.support_taux_id %}
+            <h1 class="p-3 mb-2 bg-dark text-white text-center"><strong>Support {{ oneLineStat.isin }} : {{ oneLineStat.nom }} </strong></h1>
+            <hr/>
+            <table class="table table-hover table-bordered table-striped table-sm" style="width:100%">
+                <thead>
+                <tr class="table-dark">
+                    <td align="center"><strong>Type de frais</strong></td>
+                    <td align="center"><strong>Début période</strong></td>
+                    <td align="center"><strong>Fin période</strong></td>
+                    <td align="center"><strong>Encours moyen</strong></td>
+                    <td align="center"><strong>Taux client</strong></td>
+                    <td align="center"><strong>Frais client</strong></td>
+                    <td align="center"><strong>Taux émetteur</strong></td>
+                    <td align="center"><strong>Taux prestataire</strong></td>
+                    <td align="center"><strong>Taux CNP</strong></td>
+                    <td align="center"><strong>Taux distributeur</strong></td>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-light">
+                        <td align="center" scope="col"><strong> {{ oneLineStat.type_de_frais }}</strong></td>
+                        <td align="center">{{ oneLineStat.debut_commerce ? oneLineStat.debut_commerce|date('d-m-Y') : '' }}</td>
+                        <td align="center">{{ oneLineStat.fin_commerce ? oneLineStat.fin_commerce|date('d-m-Y') : '' }}</td>
+                        <td align="center">{{ oneLineStat.montant_moyen|number_format(2, ',', ' ') }} €</td>
+                        <td align="center">{{ oneLineStat.taux }} %</td>
+                        <td align="center">{{ oneLineStat.frais_client|number_format(2, ',', ' ') }} €</td>
+                        <td align="center">{{ oneLineStat.taux_emetteur }} %</td>
+                        <td align="center">{{ oneLineStat.taux_mfex }} %</td>
+                        <td align="center">{{ oneLineStat.taux_cnp }} %</td>
+                        <td align="center">{{ oneLineStat.taux_dist }} %</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card border-dark mb-3" style="max-width: 20rem;">
+                        <div class="card-header bg-dark text-white">Frais émetteur</div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{ oneLineStat.frais_emetteur|number_format(2, ',', ' ') }} €</h4>
+                            <p class="card-text">Frais client * (taux émetteur/100)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card border-dark mb-3" style="max-width: 20rem;">
+                        <div class="card-header bg-dark text-white">Frais prestataire</div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{ oneLineStat.frais_mfex|number_format(2, ',', ' ') }} €</h4>
+                            <p class="card-text">Reste émetteur * (taux prestataire/100)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card border-dark mb-3" style="max-width: 20rem;">
+                        <div class="card-header bg-dark text-white">Frais CNP</div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{ oneLineStat.frais_cnp|number_format(2, ',', ' ') }} €</h4>
+                            <p class="card-text">(Reste émetteur - Frais prestataire) * (taux cnp/100)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card border-dark mb-3" style="max-width: 20rem;">
+                        <div class="card-header bg-dark text-white">Frais distributeur</div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{ oneLineStat.frais_distributeur|number_format(2, ',', ' ') }} €</h4>
+                            <p class="card-text">(Reste émetteur - Frais prestataire) * (taux distibuteur/100)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

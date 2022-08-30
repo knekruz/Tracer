@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    
+  <div class="container mt-4">
+    <a class="btn btn-info" href="{{ path('app_user_new') }}">Nouveau</a>
+        <h1 class="mt-4">Mes Utilisateurs</h1>
+        <hr>    
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-primary">
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr class="table-light">
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
+                <td>
+                    {#<a class="btn btn-group-sm btn-info" href="{{ path('app_user_show', {'id': user.id}) }}">Détails</a>#}
+                    <a class="btn btn-group-sm btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    >
+    </div>
+{% endblock %}

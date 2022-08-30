@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+        
+    </head>
+    <body>    
+        {# <div style="margin-bottom: 100px;"></div> #}
+        {# {% if  is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="row">
+                <table class="table table-borderless table-dark">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Roles</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ app.user.nom }}</td>
+                        <td>{{ app.user.prenom }}</td>
+                        <td><span class="badge bg-info">{{ app.user.roles ? app.user.roles|json_encode : '' }}</span></td>
+                        <td><a class="btn btn-sm btn-warning" href="{{path('app_logout')}}">Déconnexion</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endif%} #}
+        {% block header %}
+			{% include "partials/_header.html.twig" %}
+		{% endblock %}
+        {% block body %}{% endblock %}
+        {% include "partials/_footer.html.twig" %}
+    </body>
+        
+</html>

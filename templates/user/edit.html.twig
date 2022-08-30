@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+<div class="container-fluid kayu">
+  
+        <div class="table-responsive list w-100" >
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col" >
+                            <h5>Modifier utilisateur</h5>
+                        </div>
+                        
+                    </div>    
+
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.nom) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.prenom) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.email) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.roles) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-warning col-md-12" href="{{ path('app_user_index') }}">Retour</a>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary col-md-12 btn-block"> Enregistrer</button>
+                        </div>
+                    </div>
+                    </div>    
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        </div>
+        </div>
+
+    </div>
+{% endblock %}

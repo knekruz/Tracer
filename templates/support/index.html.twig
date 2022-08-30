@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supports avec encours{% endblock %}
+
+{% block body %}
+<div class="container-fluid mt-4" >
+    <h1 class="p-3 mb-2 bg-primary text-white text-center"><strong>Supports avec encours</strong></h1>
+    <table id="supports" class="table table-hover table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr class="table-primary">
+                <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">ISIN</button></th>
+                <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Nom</button></th>
+                <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">1èr investissement</button></th>
+                <th class="text-center"><button type="button" class="btn btn-prymary text-white btn-sm">Actions</button></th>
+            </tr>
+        </thead>
+        <tbody class="table table-sm">
+            {% for support in supports %}
+            {% if support.montantInvest is not empty %}
+                <tr class="table-light">
+                    <th align="center">{{ support.isin }}</th>
+                    <td align="center">{{ support.nom }}</td>
+                    <td align="center">{{ support.datePremierInvestist|date('d-m-Y') }}</td>
+                    <td align="center">
+                    <a class="btn btn-outline-success" href="{{ path('app_support_show', {'isin': support.isin}) }}">Détails</a>
+                    <a class="btn btn-outline-warning" href="{{ path('app_support_edit', {'id': support.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

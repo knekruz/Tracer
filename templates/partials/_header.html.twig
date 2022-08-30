@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-lg navbar-secondary bg-secondary ">
+	<div class="container-fluid">
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="nav nav-pills">
+				<li class="nav-item">
+					{# <a class="navbar-brand toplogo" href="{{path('app_support_index')}}"><img class="logo" src="{{ asset('build/images/logo.png') }}" alt="logo" style="width:40%">
+						<span class="visually-hidden">(current)</span>	 
+					</a> #}
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{path('app_index')}}">Accueil</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Taux
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<li>
+							<a class="dropdown-item" href="{{path('app_support_taux_index')}}">Taux liste</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{path('app_support_taux_new')}}">Taux nouveau</a>
+						</li>
+					</ul>
+				</li>	
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_supports_index') }}">Supports</a>
+				</li>	
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_facturation') }}">Facturation</a>
+				</li>	
+				<li class="nav-item">
+					<a class="nav-link" href="{{path('app_user_index')}}">Administration</a>
+				</li>
+			</ul>
+			<div class="d-flex">
+				<ul class="navbar-nav me-auto">
+					
+						{# <li class="nav-item">
+							<a class="nav-link" href="">Connexion
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="">Inscription
+							</a>
+						</li> #}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="bi bi-person-circle" style="font-size: 20px; color: cornflowerblue;"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+					<li>
+						<img class="pdp" src=".." alt="pdp">
+					</li>
+					<li>
+						<p>{{ app.user.nom }} {{ app.user.prenom }}</p>
+					</li>
+					<li>
+						<p>{{ app.user.email }}</p>
+					</li>
+					<li><hr class="dropdown-divider"></li>
+					<li>
+						<a class="dropdown-item btn-danger" href="{{path('app_logout')}}">Déconnexion</a>
+					</li>
+				</ul>
+						</li>
+				
+				</ul>
+			</div>
+			{# <form class="d-flex">
+				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form> #}
+			
+		</div>
+	</div>
+</nav>
